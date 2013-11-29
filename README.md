@@ -1,8 +1,10 @@
-# What?
+# Meem
+
+## What?
 
 Meem is a command-line tool to create memes.
 
-# How?
+## How?
 
     $ meem good-guy-greg --top "makes memes" --bottom "saves to disk"
     /tmp/meme.jpg
@@ -12,10 +14,10 @@ Meem is a command-line tool to create memes.
 
 Meem comes with a bunch of templates, but you can add your own in `~/.meem`.
 
-# Why?
+## Why?
 
 There are already a few meme generators out there, but they don't work. This one does.
 
-# Installation
+## Installation
 
     $ gem install meem
