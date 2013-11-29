@@ -34,8 +34,9 @@ module Meem
   #
   # Returns options.
   def self.parse arguments
-    options = OpenStruct.new
+    arguments = ["--help"] if arguments.empty?
 
+    options      = OpenStruct.new
     options.meme = arguments.first
 
     OptionParser.new do |opts|
