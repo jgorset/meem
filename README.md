@@ -1,6 +1,6 @@
 # Meem
 
-Meem is a command-line tool to create memes.
+Meem is a command-line tool to create memes. It's pretty awesome.
 
 ### Usage
 
