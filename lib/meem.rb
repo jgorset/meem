@@ -1,31 +1,30 @@
+DIRECTORY = File.expand_path File.dirname __FILE__
+
 require "meem/version"
+require "meem/templates"
 require "optparse"
 require "ostruct"
 require "meme_captain"
-require "open-uri"
-require "pathname"
-
-DIRECTORY = File.expand_path File.dirname __FILE__
 
 module Meem
-  PATHS = [
-    "#{ENV['HOME']}/.meem/",
-    "#{DIRECTORY}/../templates/"
-  ]
-
   def self.run arguments
     options = parse arguments
 
-    image = MemeCaptain.meme_top_bottom fetch(options.meme), options.top, options.bottom,
-      font: "#{DIRECTORY}/../fonts/impact.ttf"
+    template = Templates.load options.meme
 
-    if STDOUT.tty?
-      path = "/tmp/meme.jpg"
+    if template
+      image = generate template, options.top, options.bottom
 
-      image.write path
-      puts path
+      if STDOUT.tty?
+        path = "/tmp/meme.jpg"
+
+        image.write path
+        puts path
+      else
+        puts image.to_blob
+      end
     else
-      puts image.to_blob
+      error "meme not found"
     end
   end
 
@@ -45,7 +44,10 @@ module Meem
       opts.version = Meem::VERSION
 
       opts.on "-l", "--list", "List memes" do
-        list
+        Templates.list.each do |file|
+          puts file.basename.to_s[/(.*)\.jpg/, 1]
+        end
+
         exit
       end
 
@@ -71,18 +73,16 @@ module Meem
     options
   end
 
-  # List memes.
-  def self.list
-    PATHS.each do |path|
-      Dir.glob "#{path}/*.jpg" do |file|
-        file = Pathname.new file
-
-        puts "* " + file.basename.to_s[/(.*)\.jpg/, 1]
-      end
-    end
-  end
-
   private
+
+  # Generate a meme.
+  # 
+  # template - A File describing a template.
+  # top      - A String describing the top caption.
+  # bottom   - A String describing the bottom caption.
+  def self.generate template, top, bottom
+    MemeCaptain.meme_top_bottom template, top, bottom, font: "#{DIRECTORY}/../fonts/impact.ttf"
+  end
 
   # Print a message and exit.
   #
@@ -91,26 +91,5 @@ module Meem
   def self.error message, code = 1
     puts "meem: #{message}"
     exit code
-  end
-
-  # Load a meme.
-  #
-  # meme - A String describing a meme.
-  #
-  # Returns a File.
-  def self.fetch meme
-    if meme[/^http:\/\//]
-      return open meme
-    else
-      PATHS.each do |path|
-        image = path + "#{meme}.jpg"
-
-        if File.exists? image
-          return open image
-        end
-      end
-
-      error "meme not found"
-    end
   end
 end
