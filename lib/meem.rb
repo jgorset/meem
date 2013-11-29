@@ -41,7 +41,7 @@ module Meem
 
     OptionParser.new do |opts|
       opts.program_name = "meem"
-      opts.banner = "usage: meem <meme> <top text> <bottom text>"
+      opts.banner = "usage: meem <meme> [options]"
       opts.version = Meem::VERSION
 
       opts.on "-l", "--list", "List memes" do
