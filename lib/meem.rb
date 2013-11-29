@@ -3,6 +3,7 @@ require "optparse"
 require "ostruct"
 require "meme_captain"
 require "open-uri"
+require "pathname"
 
 DIRECTORY = File.expand_path File.dirname __FILE__
 
