@@ -31,7 +31,7 @@ module Meem::Templates
   #
   # Returns a File.
   def self.load template
-    if template[/^http:\/\//]
+    if template[/^https?:\/\//]
       return open template
     else
       find template
