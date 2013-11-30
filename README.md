@@ -18,7 +18,6 @@ it for later, you can even pass a path or URL.
 Meem comes with autocompletion for your favorite shell (as long as your favorite shell is zsh). To install it,
 copy `completion/meem.zsh` onto your `$FPATH`.
 
-
 ### Installation
 
     $ gem install meem
