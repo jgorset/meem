@@ -12,8 +12,9 @@ module Meem::Templates
   # Returns an Array of Pathname instances.
   def self.list
     PATHS.map do |path|
+      next unless File.exists?(path)
       path.children.select { |child| child.extname == ".jpg" }
-    end.flatten
+    end.compact.flatten
   end
 
   # Find a given template.
