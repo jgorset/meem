@@ -7,7 +7,7 @@ Meem is a command-line tool to create memes. It's pretty awesome.
     $ meem good-guy-greg --top "makes memes" --bottom "saves to disk"
     /tmp/meme.jpg
 
-    $ meem good-guy-greg --top "makes memes" --bottom "uploads to imgur" | imgur
+    $ meem good-guy-greg --top "makes memes" --bottom "uploads to imgur" | imgur2
     http://i.imgur.com/VBCRwlb.jpg
 
 Meem ships with a bunch of templates, and you can add your own in `~/.meem`. If you don't want to save
